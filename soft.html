@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timer</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #timer-container { font-size: 40px; margin: 20px; }
+    button { font-size: 20px; margin: 10px; padding: 10px 20px; border-radius: 20px; box-shadow:  0 4px 8px rgba(0, 0, 0, 0.3); }
+   .timerplace{background-color:#B7CEDE; box-shadow:  0 4px 8px rgba(0, 0, 0, 0.3);
+               border-radius: 20px; padding: 10px; justify-content: center; max-width: 800px;
+               margin-top:10%; margin-left: 20%; margin-right: 10%;}
+   button:hover{ background-color: black; color: white; box-shadow:  0 4px 8px rgba(0, 0, 0, 0.3);  }
+  h1{
+  margin: 10px;
+  }
+  </style>
+</head>
+<body>
+    <div class="timerplace">
+  <h1>First, start water to boil and start<br>the timer below..</h1>
+
+  <div id="timer-container">
+    <span id="timer">4</span>:<span id="timer2">00</span>
+  </div>
+
+  <button onclick="startTimer()">Start</button>
+  <button onclick="stopTimer()">Stop</button>
+  <button onclick="resetTimer()">Reset</button>
+  </div>
+  <script>
+    let time = 4 * 60; // 4 minutes in seconds
+    let interval = null;
+
+    function updateTimer() {
+      let min = Math.floor(time / 60);
+      let sec = time % 60;
+      document.getElementById("timer").innerText = min;
+      document.getElementById("timer2").innerText = sec < 10 ? "0" + sec : sec;
+    }
+
+    function startTimer() {
+      if (interval) return; // don't start again if already running
+
+      interval = setInterval(() => {
+        if (time > 0) {
+          time--;
+          updateTimer();
+        } else {
+          stopTimer();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      time = 4 * 60;
+      updateTimer();
+    }
+
+    updateTimer(); // show starting time on load
+  </script>
+</body>
+</html>
